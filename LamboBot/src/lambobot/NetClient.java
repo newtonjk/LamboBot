@@ -30,9 +30,6 @@ public class NetClient {
     } 
         
     public void getMarket() throws ParseException{
-        // http://localhost:8080/RESTfulExample/json/product/get
-
-
 	  try {
 
 		URL url = new URL("https://bittrex.com/api/v1.1/public/getmarkets");
@@ -52,21 +49,19 @@ public class NetClient {
 		while ((line = br.readLine()) != null) {
 			output.append(line);
 		}
-                String temp = output.toString();
-                
-                JSONObject object = (JSONObject)JSONValue.parseWithException(temp);
 
-                JSONArray results = (JSONArray)object.get("result");
-                Iterator i = results.iterator();
+                JSONObject object = (JSONObject)JSONValue.parseWithException(output.toString());
+
+                JSONArray markets = (JSONArray)object.get("result");
+                Iterator i = markets.iterator();
                 
                 List<String> coinName = new ArrayList<String>();
                 
                 while (i.hasNext()) {
-                    JSONObject result = (JSONObject) i.next();
-                    coinName.add(result.get("MarketName").toString());
+                    JSONObject market = (JSONObject) i.next();
+                    coinName.add(market.get("MarketName").toString());
                 }
-                Collections.sort(coinName);
-                
+                Collections.sort(coinName);                
                 
                 coinName.forEach(name->System.out.println(name));
 
@@ -75,7 +70,6 @@ public class NetClient {
 	  } catch (MalformedURLException e) {
 	  } catch (IOException e) {
 	  }
-
     }
 
 

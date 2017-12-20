@@ -5,6 +5,8 @@
  */
 package lambobot;
 
+import org.json.simple.parser.ParseException;
+
 /**
  *
  * @author Default7
@@ -13,8 +15,9 @@ public class LamboBot {
 
     /**
      * @param args the command line arguments
+     * @throws org.json.simple.parser.ParseException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
     
         NetClient http = new NetClient();
         http.getMarket();
